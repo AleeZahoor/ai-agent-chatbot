@@ -3,111 +3,50 @@ load_dotenv()
 
 import streamlit as st
 
-# Page config
-st.set_page_config(
-    page_title="AI Chatbot Agents", 
-    layout="centered"
-)
+st.set_page_config(page_title="AI Chatbot Agents", layout="centered")
 
-# DARK MODE CSS - Yahan add kiya gaya hai
+# Dark mode CSS
 st.markdown("""
 <style>
-    /* Main app background */
     .stApp {
         background: #1a1a2e;
     }
-    
-    /* Main container */
     .block-container {
         background: #16213e;
         color: white;
-        border-radius: 15px;
-        padding: 20px;
     }
-    
-    /* Headers color */
-    h1, h2, h3, .stTitle {
-        color: #e94560 !important;
+    h1, h2, h3 {
+        color: #e94560;
     }
-    
-    /* Text area styling */
     .stTextArea textarea {
-        background: #0f3460 !important;
-        color: white !important;
-        border: 1px solid #e94560 !important;
-        border-radius: 10px !important;
+        background: #0f3460;
+        color: white;
     }
-    
-    /* Text input styling */
-    .stTextInput input {
-        background: #0f3460 !important;
-        color: white !important;
-    }
-    
-    /* Selectbox styling */
-    .stSelectbox select {
-        background: #0f3460 !important;
-        color: white !important;
-    }
-    
-    /* Button styling */
     .stButton button {
-        background: #e94560 !important;
-        color: white !important;
-        border-radius: 20px !important;
-        padding: 10px 30px !important;
-        font-weight: bold !important;
-        border: none !important;
+        background: #e94560;
+        color: white;
     }
-    
-    .stButton button:hover {
-        background: #ff6b8a !important;
-        transform: scale(1.02);
+    .stSelectbox select {
+        background: #0f3460;
+        color: white;
     }
-    
-    /* Checkbox styling */
     .stCheckbox label {
-        color: white !important;
-    }
-    
-    /* Radio button styling */
-    .stRadio label {
-        color: white !important;
-    }
-    
-    /* Info/Warning/Error messages */
-    .stAlert {
-        background: #0f3460 !important;
-        color: white !important;
-    }
-    
-    /* Sidebar (if you have it) */
-    .css-1d391kg {
-        background: #0f3460 !important;
-    }
-    
-    /* Write text */
-    .stMarkdown {
         color: white;
     }
 </style>
 """, unsafe_allow_html=True)
 
-# Your existing code continues here
-st.title("AI Chatbot Agents")
+st.title("🤖 AI Chatbot Agents")
 st.write("Create and Interact with the AI Agents!")
 
 system_prompt = st.text_area("Define your AI Agent: ", height=70, placeholder="Type your system prompt here...")
 
-MODEL_NAMES_GROQ = ["llama-3.3-70b-versatile", "mixtral-8x7b-32768"]
-MODEL_NAMES_OPENAI = ["gpt-4o-mini"]
-
-provider = st.radio("Select Provider:", ("Groq", "OpenAI"))
-
-if provider == "Groq":
-    selected_model = st.selectbox("Select Groq Model:", MODEL_NAMES_GROQ)
-elif provider == "OpenAI":
-    selected_model = st.selectbox("Select OpenAI Model:", MODEL_NAMES_OPENAI)
+# ✅ SIRF GROQ - OpenAI HATAYA
+provider = "Groq"
+selected_model = st.selectbox(
+    "Select Groq Model:", 
+    ["llama-3.3-70b-versatile", "mixtral-8x7b-32768"]
+)
 
 allow_web_search = st.checkbox("Allow Web Search")
 user_query = st.text_area("Enter your query: ", height=150, placeholder="Ask Anything!")
@@ -120,7 +59,7 @@ if st.button("Ask Agent!"):
 
         payload = {
             "model_name": selected_model,
-            "model_provider": provider,
+            "model_provider": provider,  # Always "Groq"
             "system_prompt": system_prompt,
             "messages": [user_query],
             "allow_search": allow_web_search
@@ -132,10 +71,7 @@ if st.button("Ask Agent!"):
             if response.status_code == 200:
                 response_data = response.json()
                 
-                if isinstance(response_data, str):
-                    st.subheader("Agent Response")
-                    st.markdown(f"**Final Response:** {response_data}")
-                elif isinstance(response_data, dict):
+                if isinstance(response_data, dict):
                     if "error" in response_data:
                         st.error(response_data["error"])
                     else:
