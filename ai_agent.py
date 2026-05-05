@@ -3,7 +3,7 @@ load_dotenv()
 
 import os
 from langchain_groq import ChatGroq
-from langchain_openai import ChatOpenAI
+
 from langchain_community.tools.tavily_search import TavilySearchResults
 from langgraph.prebuilt import create_react_agent
 from langchain_core.messages import HumanMessage, AIMessage, SystemMessage
@@ -16,8 +16,8 @@ def get_response_from_ai_agent(llm_id, query, allow_search, system_prompt, provi
         # Initialize LLM based on provider
         if provider == "Groq":
             llm = ChatGroq(model=llm_id, temperature=0.7)
-        elif provider == "OpenAI":
-            llm = ChatOpenAI(model=llm_id, temperature=0.7)
+       # elif provider == "OpenAI":
+           # llm = ChatOpenAI(model=llm_id, temperature=0.7)
         else:
             return f"Error: Unknown provider '{provider}'"
 

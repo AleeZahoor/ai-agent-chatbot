@@ -1,9 +1,10 @@
-﻿fastapi
+﻿streamlit
+fastapi
 uvicorn
-streamlit
 langchain
 langchain-groq
 langchain-community
+langgraph
 tavily-python
 python-dotenv
 pydantic
