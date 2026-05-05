@@ -1,5 +1,4 @@
-notepad requirements.txt
-fastapi
+﻿fastapi
 uvicorn
 streamlit
 langchain
