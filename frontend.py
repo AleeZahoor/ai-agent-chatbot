@@ -51,7 +51,7 @@ selected_model = st.selectbox(
 allow_web_search = st.checkbox("Allow Web Search")
 user_query = st.text_area("Enter your query: ", height=150, placeholder="Ask Anything!")
 
-https://ai-agent-backend-mnxb.onrender.com
+API_URL = "https://ai-agent-backend.onrender.com/chat"
 
 if st.button("Ask Agent!"):
     if user_query.strip():
